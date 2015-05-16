@@ -1,10 +1,10 @@
 # addel
 
-A simple jQuery plugin for powering UIs that enable dynamic addition and deletion of elements, conceived with form elements in mind.
+A simple jQuery plugin for powering UIs that enable dynamic addition & deletion of elements, conceived with form elements in mind.
 
-`addel` is short for add-delete, and should be pronounced Adele, just like the singer's name.
+`addel` is short for add-delete, & should be pronounced Adele, just like the singer's name.
 
-It's all in the details, people!
+Because it's all in the details, people!
 
 ## Initialization
 
@@ -30,7 +30,7 @@ $('.addel-container').addel({
 
 ## Default behaviour
 
-Upon initialization the plugin takes care of hiding the target and disabling any form elements it might contain.
+Upon initialization the plugin takes care of hiding the target & disabling any form elements it might contain.
 
 ## HTML structure
 
