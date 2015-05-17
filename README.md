@@ -1,8 +1,8 @@
 # addel
 
-addel is a simple jQuery plugin for powering UIs that enable dynamic addition & deletion of elements, conceived with form elements in mind.
+addel is a very simple & lightweight jQuery plugin for powering UIs that enable dynamic addition & deletion of elements, conceived with form elements in mind.
 
-`addel` is short for add-delete, & should be pronounced Adele, just like the singer's name.
+`addel` is short for add-delete & should be pronounced Adele, just like the singer's name.
 
 ..Because it's all in the details, people!
 
@@ -25,10 +25,10 @@ $('.addel-container').addel({
 });
 ```
 
-* `target:` class name of the element to be dynamically addeled
-* `add:` class name of the element that adds a target on click
-* `del:` class name of the element that deletes a target on click
-* `delAlert:` alert text that pops up when clicking `del`
+* `target:` the class name of the element to be dynamically "addeled"
+* `add:` the class name of the element that adds a `target` on click
+* `del:` the class name of the element that deletes a `target` on click
+* `delAlert:` the alert text that pops up when clicking `del`
 
 
 ## Default behaviour
@@ -47,9 +47,9 @@ Upon initialization the plugin takes care of hiding the target & disabling any f
 </div>
 ```
 
-* `.addel-container` **must** be the element to initialize the plugin upon
-* `.addel-container` **must** contain `.addel-target`, `.addel-del` & `.addel-add`
-* `.addel-target` **should** also contain your own elements
+* `.addel-container` **must** be the element the plugin is initialized upon
+* `.addel-container` **must** contain everything else: `.addel-target`, `.addel-del` & `.addel-add`
+* `.addel-target` **should** also contain your own elements, this is after all what we are here for
 * `.addel-del` **must** be `.addel-container`'s & `.addel-target`'s descendant 
 * `.addel-add` **must** be `.addel-container`'s descendant & can't be `.addel-target`'s descedant
 
@@ -66,4 +66,4 @@ Developed using Chrome (v42). Should work properly on all modern browsers.
 
 ## License
 
-Code released under the [MIT license](https://github.com/legshooter/addel/blob/master/LICENSE).
+addel is released under the [MIT license](https://github.com/legshooter/addel/blob/master/LICENSE).
