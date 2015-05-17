@@ -1,6 +1,6 @@
-(function ( $ ) {
+(function ($) {
 
-    $.fn.addel = function( options ) {
+    $.fn.addel = function (options) {
 
         'use strict';
 
@@ -13,14 +13,14 @@
             delAlert: 'למחוק?'
         };
 
-        var settings = $.extend( true, {}, defaults, options );
+        var settings = $.extend(true, {}, defaults, options);
 
         var target = classSymbol + settings.target;
         var add = classSymbol + settings.add;
         var del = classSymbol + settings.del;
         var formElements = 'input, select, textarea';
 
-        return this.each(function() {
+        return this.each(function () {
 
             var container = $(this);
 
@@ -28,7 +28,7 @@
             container.find(target).hide().find(formElements).prop('disabled', true);
 
             // add
-            container.on('click', add, function() {
+            container.on('click', add, function () {
 
                 var targetToAdd = container.find(target).last();
 
@@ -36,7 +36,7 @@
                 if (targetToAdd.filter(':visible').length === 0) {
                     targetToAdd.fadeIn().find(formElements).prop('disabled', false);
 
-                // target/s visible
+                    // target/s visible
                 } else {
                     targetToAdd.clone(true).insertAfter(targetToAdd).hide().fadeIn();
                 }
@@ -46,7 +46,7 @@
             });
 
             // del
-            container.on('click', del, function() {
+            container.on('click', del, function () {
 
                 if (confirm(settings.delAlert)) {
 
@@ -60,16 +60,19 @@
                         targetToDel.fadeOut().find(formElements).prop('disabled', true);
                         container.find(add).focus();
 
-                    // >1 targets exist
+                        // >1 targets exist
                     } else {
 
-                        targetToDel.fadeOut(function() {$(this).remove()});
+                        targetToDel.fadeOut(function () {
+                            $(this).remove();
+                        });
 
                         if (targetToDelPrev.length === 1) {
                             targetToDelPrev.find(del).focus();
                         } else {
                             targetToDelNext.find(del).focus();
                         }
+
                     }
 
                 }
@@ -77,6 +80,7 @@
             });
 
         });
+
     };
 
-}( jQuery ));
+}(jQuery));
