@@ -4,7 +4,7 @@ addel is a simple jQuery plugin for powering UIs that enable dynamic addition & 
 
 `addel` is short for add-delete, & should be pronounced Adele, just like the singer's name.
 
-Because it's all in the details, people!
+..Because it's all in the details, people!
 
 
 ## Initialization
@@ -61,7 +61,7 @@ Developed with a sole dependency on jQuery (v2.1.3).
 
 ## Browser support
 
-Developed using Chrome v42. Should work properly on all modern browsers.
+Developed using Chrome (v42). Should work properly on all modern browsers.
 
 
 ## License
