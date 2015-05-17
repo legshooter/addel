@@ -56,12 +56,12 @@ Upon initialization the plugin takes care of hiding the target & disabling any f
 
 ## Dependencies
 
-Developed with a sole dependency on jQuery 2.1.3.
+Developed with a sole dependency on jQuery (v2.1.3).
 
 
 ## Browser support
 
-Developed using Chrome v42. Should work properly with all modern browsers.
+Developed using Chrome v42. Should work properly on all modern browsers.
 
 
 ## License
