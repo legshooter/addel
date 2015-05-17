@@ -6,11 +6,13 @@ addel is a simple jQuery plugin for powering UIs that enable dynamic addition & 
 
 Because it's all in the details, people!
 
+
 ## Initialization
 
 ```javascript
 $('.addel-container').addel();
 ```
+
 
 ## Options & defaults
 
@@ -28,9 +30,11 @@ $('.addel-container').addel({
 * `del:` class name of the element that deletes a target on click
 * `delAlert:` alert text that pops up when clicking `del`
 
+
 ## Default behaviour
 
 Upon initialization the plugin takes care of hiding the target & disabling any form elements it might contain.
+
 
 ## HTML structure & restrictions
 
@@ -51,4 +55,15 @@ Upon initialization the plugin takes care of hiding the target & disabling any f
 
 
 ## Dependencies
+
 Developed with a sole dependency on jQuery 2.1.3.
+
+
+## Browser support
+
+Developed using Chrome v42. Should work properly with all modern browsers.
+
+
+## License
+
+Code released under the [MIT license](https://github.com/legshooter/addel/blob/master/LICENSE).
