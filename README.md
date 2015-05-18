@@ -1,6 +1,6 @@
 # addel
 
-addel is a very simple & lightweight jQuery plugin for powering UIs that enable dynamic addition & deletion of elements, conceived with form elements in mind.
+addel is a very simple & lightweight jQuery plugin for powering UIs that enable dynamic addition & deletion of HTML DOM elements, conceived with form elements in mind.
 
 "addel" is short for add-delete & should be pronounced Adele, just like the singer's name.
 
