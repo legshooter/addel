@@ -4,6 +4,7 @@
 
         'use strict';
 
+        // options/defaults/settings
         var defaults = {
             target: 'addel-target',
             add: 'addel-add',
@@ -20,11 +21,12 @@
 
         var formElements = 'input, select, textarea';
 
+        //core
         return this.each(function () {
 
+            // init
             var container = $(this);
 
-            // init
             container.find(target).hide().find(formElements).prop('disabled', true);
 
             // add
@@ -36,7 +38,7 @@
                 if (targetToAdd.filter(':visible').length === 0) {
                     targetToAdd.fadeIn().find(formElements).prop('disabled', false);
 
-                    // target/s visible
+                // visible target/s
                 } else {
                     targetToAdd.clone(true).insertAfter(targetToAdd).hide().fadeIn();
                 }
@@ -60,7 +62,7 @@
                         targetToDel.fadeOut().find(formElements).prop('disabled', true);
                         container.find(add).focus();
 
-                        // >1 targets exist
+                    // >1 targets exist
                     } else {
 
                         targetToDel.fadeOut(function () {
