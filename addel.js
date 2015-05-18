@@ -4,8 +4,6 @@
 
         'use strict';
 
-        var classSymbol = '.';
-
         var defaults = {
             target: 'addel-target',
             add: 'addel-add',
@@ -13,11 +11,13 @@
             delAlert: 'למחוק?'
         };
 
-        var settings = $.extend(true, {}, defaults, options);
+        var settings = $.extend({}, defaults, options);
 
-        var target = classSymbol + settings.target;
-        var add = classSymbol + settings.add;
-        var del = classSymbol + settings.del;
+        var target = '.' + settings.target;
+        var add = '.' + settings.add;
+        var del = '.' + settings.del;
+        var delAlert = settings.delAlert;
+
         var formElements = 'input, select, textarea';
 
         return this.each(function () {
@@ -48,7 +48,7 @@
             // del
             container.on('click', del, function () {
 
-                if (confirm(settings.delAlert)) {
+                if (confirm(delAlert)) {
 
                     var targetToDel = $(this).closest(target);
                     var targetToDelPrev = targetToDel.prev(target);
