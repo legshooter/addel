@@ -1,6 +1,6 @@
 # addel
 
-addel is a very simple & lightweight jQuery plugin for powering UIs that enable dynamic addition & deletion of HTML DOM elements, conceived with form elements in mind.
+addel is a simple & lightweight jQuery plugin for powering UIs that enable dynamic addition & deletion of HTML elements, conceived with form elements in mind.
 
 "addel" is short for add-delete & should be pronounced Adele, just like the singer's name.
 
@@ -18,9 +18,9 @@ addel is a very simple & lightweight jQuery plugin for powering UIs that enable 
 ## Installation
 There are multiple options:
 
-- Download `addel.jquery.js` or `addel.jquery.min.js`
-- Use [`bower`](http://bower.io/): `bower install addel --save`
-- Use [`npm`](https://www.npmjs.com/): `npm install addel --save`
+- Download [addel.jquery.js](addel.jquery.js) or [addel.jquery.min.js](addel.jquery.min.js)
+- Use [bower](http://bower.io/): `bower install addel --save`
+- Use [npm](https://www.npmjs.com/): `npm install addel --save`
 
 And include it:
 `<script src="/path/to/file/addel.jquery.js"></script>`
@@ -99,15 +99,15 @@ Or a specific key:
 All custom events are triggered on the element initialized as the container.
 
 ### Example
-Display an `alert()` confirmation message before deletion:
+Display a `window.confirm()` before deletion:
 ```javascript
 $('.addel').addel({
   // optional options
 })
 .on('addel:delete', function (event) {
-  if (!window.confirm('Are you absolutely positive you would like to delete: ' + '"' + event.target.find(':input').val() + '"?')) {
+  if (!window.confirm('Are you absolutely positively sure?')) {
     event.preventDefault();
-}
+  }
 });
 ````
 

@@ -4,7 +4,7 @@
   "authors": [
     "legshooter"
   ],
-  "description": "addel is a lightweight jQuery plugin for powering UIs that enable dynamic addition & deletion of HTML DOM elements.",
+  "description": "addel is a lightweight jQuery plugin for powering UIs that enable dynamic addition & deletion of HTML elements.",
   "main": "addel.jquery.js",
   "keywords": [
     "addel",

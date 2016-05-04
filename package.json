@@ -1,7 +1,7 @@
 {
   "name": "addel",
   "version": "1.0.0",
-  "description": "addel is a very simple & lightweight jQuery plugin for powering UIs that enable dynamic addition & deletion of HTML DOM elements, conceived with form elements in mind.",
+  "description": "addel is a simple & lightweight jQuery plugin for powering UIs that enable dynamic addition & deletion of HTML elements.",
   "keywords": [
     "addel",
     "jquery",
