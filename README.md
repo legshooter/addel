@@ -19,7 +19,7 @@ addel is a simple & lightweight jQuery plugin for powering UIs that enable dynam
 There are multiple options:
 
 - Download [addel.jquery.js](addel.jquery.js) or [addel.jquery.min.js](addel.jquery.min.js)
-- Use [bower](http://bower.io/): `bower install addel --save`
+- Use [Bower](http://bower.io/): `bower install addel --save`
 - Use [npm](https://www.npmjs.com/): `npm install addel --save`
 
 And include it:
