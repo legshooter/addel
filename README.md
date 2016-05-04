@@ -93,7 +93,7 @@ Or a specific key:
 ## Custom events
 - `addel:add`: Triggered when `classes.add` is clicked
 - `addel:added`: Triggered when `classes.target` is added to the DOM
-- `addel:delete`: Triggered when `classes:delete` is clicked
+- `addel:delete`: Triggered when `classes.delete` is clicked
 - `addel:deleted`: Triggered when `classes.target` is deleted from the DOM
 
 All custom events are triggered on the element initialized as the container.
