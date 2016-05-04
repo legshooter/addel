@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en-US" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>addel Example</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+
+            <h1 class="text-center">addel Example</h1>
+
+            <div class="addel">
+
+                <h2>Organizations</h2>
+
+                <div class="form-group target">
+                    <div class="input-group">
+                        <input type="text" name="contacts[]" class="form-control">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-danger addel-delete"><i class="fa fa-remove"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-success btn-block addel-add"><i class="fa fa-plus"></i></button>
+
+            </div>
+
+            <div class="addel">
+
+                <h2>People</h2>
+
+                <div class="form-group target">
+                    <div class="input-group">
+                        <input type="text" name="contacts[]" class="form-control">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-danger addel-delete"><i class="fa fa-remove"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-success btn-block addel-add"><i class="fa fa-plus"></i></button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-2.2.3.min.js"
+        integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
+<script src="addel.jquery.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.addel').addel({
+            classes: {
+                target: 'target'
+            },
+            animation: {
+                duration: 100
+            }
+        }).on('addel:delete', function (event) {
+            if (!window.confirm('Are you absolutely positive you would like to delete: ' + '"' + event.target.find(':input').val() + '"?')) {
+                console.log('preventDefault()!');
+                event.preventDefault();
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

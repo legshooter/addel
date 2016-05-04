@@ -1,0 +1,31 @@
+{
+  "name": "addel",
+  "homepage": "https://github.com/legshooter/addel",
+  "authors": [
+    "legshooter"
+  ],
+  "description": "addel is a lightweight jQuery plugin for powering UIs that enable dynamic addition & deletion of HTML DOM elements.",
+  "main": "addel.jquery.js",
+  "keywords": [
+    "addel",
+    "jquery",
+    "add",
+    "delete",
+    "remove",
+    "Adele",
+    "dynamic",
+    "UI",
+    "html"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2.2.3"
+  }
+}

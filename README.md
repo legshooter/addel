@@ -6,35 +6,72 @@ addel is a very simple & lightweight jQuery plugin for powering UIs that enable 
 
 ..Because it's all in the details, people!
 
+![addel Example](demo.gif)
+
+## Features
+- Lightweight
+- Allows for maximum flexibility with your HTML structure
+- Triggers custom events you can hook on
+- Provides keyboard convenience through smart default focus behaviour
+- Enables animation customization
+
+## Installation
+There are multiple options:
+
+- Download `addel.jquery.js` or `addel.jquery.min.js`
+- Use [`bower`](http://bower.io/): `bower install addel --save`
+- Use [`npm`](https://www.npmjs.com/): `npm install addel --save`
+
+And include it:
+`<script src="/path/to/file/addel.jquery.js"></script>`
 
 ## Initialization
 
 ```javascript
-$('.addel-container').addel();
-```
-
-
-## Options & defaults
-
-```javascript
 $('.addel-container').addel({
-  target: 'addel-target',
-  add: 'addel-add',
-  del: 'addel-del',
-  delAlert: 'למחוק?'
+  // optional options object
 });
 ```
 
-* `target:` the class name of the element to be dynamically "addeled"
-* `add:` the class name of the element that adds a `target` on click
-* `del:` the class name of the element that deletes a `target` on click
-* `delAlert:` the alert text that pops up when clicking `del`
+## Options
 
+### Defaults
 
-## Default behaviour
+```javascript
+$('.addel-container').addel({
+    hide: false,
+    classes: {
+        target: 'addel-target',
+        add: 'addel-add',
+        delete: 'addel-delete'
+    },
+    animation: {
+        duration: 0,
+        easing: 'swing'
+    }
+});
+```
 
-Upon initialization addel takes care of hiding the target & disabling any form elements it might contain.
+* `hide`: Whether to initially hide the `target` (and disable its form elements)
+* `classes.target`: The class name of the element to be dynamically `addeled`™
+* `classes.add`: The class name of the element that adds a `target` on click
+* `classes.delete`: The class name of the element that deletes a `target` on click
+* `animation.duration`: The animation's duration when `addeling`™
+* `animation.easing`: The animation's easing when `addeling`™
 
+For `animation` customization, see jQuery's [`.fadeIn()`](http://api.jquery.com/fadein/) and [`.fadeOut`](http://api.jquery.com/fadeout/)
+
+### Global override
+Override the entire object:
+```javascript
+$.fn.addel.defaults = {
+    // options
+}
+```
+
+Or a specific key:
+
+`$.fn.addel.defaults.option = value`
 
 ## HTML structure & restrictions
 
@@ -48,21 +85,43 @@ Upon initialization addel takes care of hiding the target & disabling any form e
 ```
 
 * `.addel-container` **must** be the element addel is initialized upon
-* `.addel-container` **must** contain everything else: `.addel-target`, `.addel-del` & `.addel-add`
-* `.addel-target` **should** also contain your own elements, this is after all what we are here for
-* `.addel-del` **must** be `.addel-container`'s & `.addel-target`'s descendant 
-* `.addel-add` **must** be `.addel-container`'s descendant & can't be `.addel-target`'s descedant
+* `.addel-container` **must** contain everything else: `.addel-target`, `.addel-delete` & `.addel-add`
+* `.addel-target` **should** also contain your own element/s, this is after all what we are here for
+* `.addel-delete` **must** be `.addel-container`'s & `.addel-target`'s descendant
+* `.addel-add` **must** be `.addel-container`'s descendant & can't be `.addel-target`'s descendant
 
+## Custom events
+- `addel:add`: Triggered when `classes.add` is clicked
+- `addel:added`: Triggered when `classes.target` is added to the DOM
+- `addel:delete`: Triggered when `classes:delete` is clicked
+- `addel:deleted`: Triggered when `classes.target` is deleted from the DOM
+
+All custom events are triggered on the element initialized as the container.
+
+### Example
+Display an `alert()` confirmation message before deletion:
+```javascript
+$('.addel').addel({
+  // optional options
+})
+.on('addel:delete', function (event) {
+  if (!window.confirm('Are you absolutely positive you would like to delete: ' + '"' + event.target.find(':input').val() + '"?')) {
+    event.preventDefault();
+}
+});
+````
 
 ## Dependencies
 
-Developed with a sole dependency on jQuery (v2.1.3).
+jQuery (v2.2.3).
 
 
 ## Browser support
 
-Developed using Chrome (v42). Should work properly on all modern browsers.
+Developed and tested using Chrome (v50). Should work properly on all modern browsers.
 
+## Release policy
+See [Semantic Versioning](http://semver.org/).
 
 ## License
 
