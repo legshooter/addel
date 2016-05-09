@@ -59,7 +59,7 @@ $('.addel-container').addel({
 * `animation.duration`: The animation's duration when `addeling`™
 * `animation.easing`: The animation's easing when `addeling`™
 
-For `animation` customization, see jQuery's [`.fadeIn()`](http://api.jquery.com/fadein/) and [`.fadeOut`](http://api.jquery.com/fadeout/)
+For `animation` customization, see jQuery's [`.fadeIn()`](http://api.jquery.com/fadein/) and [`.fadeOut()`](http://api.jquery.com/fadeout/)
 
 ### Global override
 Override the entire object:
