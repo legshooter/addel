@@ -1,6 +1,6 @@
-![addel Example](demo.gif)
-
 # addel
+
+![addel Example](demo.gif)
 
 addel is a simple & lightweight jQuery plugin for powering UIs that enable dynamic addition & deletion of HTML elements, conceived with form elements in mind.
 
