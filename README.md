@@ -1,3 +1,5 @@
+![addel Example](demo.gif)
+
 # addel
 
 addel is a simple & lightweight jQuery plugin for powering UIs that enable dynamic addition & deletion of HTML elements, conceived with form elements in mind.
@@ -5,8 +7,6 @@ addel is a simple & lightweight jQuery plugin for powering UIs that enable dynam
 "addel" is short for add-delete & should be pronounced Adele, just like the singer's name.
 
 ..Because it's all in the details, people!
-
-![addel Example](demo.gif)
 
 ## Features
 - Lightweight
@@ -96,7 +96,7 @@ Or a specific key:
 - `addel:delete`: Triggered when `classes.delete` is clicked
 - `addel:deleted`: Triggered when `classes.target` is deleted from the DOM
 
-All custom events are triggered on the element initialized as the container.
+All custom events are triggered on the element addel is initialized upon (AKA `.addel-container`).
 
 ### Example
 Display a `window.confirm()` before deletion:
@@ -118,10 +118,10 @@ jQuery (v2.2.3).
 
 ## Browser support
 
-Developed and tested using Chrome (v50). Should work properly on all modern browsers.
+addel is developed and tested using Chrome (v50). Should work properly on all modern browsers (IE9+).
 
 ## Release policy
-See [Semantic Versioning](http://semver.org/).
+addel adheres to [Semantic Versioning](http://semver.org/).
 
 ## License
 

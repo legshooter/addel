@@ -17,9 +17,10 @@
         var addButtonClass = '.' + settings.classes.add;
         var deleteButtonClass = '.' + settings.classes.delete;
 
-        var animation = {};
-        animation.duration = settings.animation.duration;
-        animation.easing = settings.animation.easing;
+        var animation = {
+            duration: settings.animation.duration,
+            easing: settings.animation.easing
+        };
 
         // hide feature
         if (settings.hide) {
@@ -65,7 +66,7 @@
             var deleteEvent = $.Event('addel:delete', {target: target});
             container.trigger(deleteEvent);
             if (deleteEvent.isDefaultPrevented()) {
-                return
+                return false;
             }
 
             // 1 target exists
@@ -97,6 +98,9 @@
 
     }
 
+    // plugin wrapper
+    // instantiates the plugin as many times as needed
+    // and makes sure no duplication occurs
     $.fn[pluginName] = function (options) {
         return this.each(function () {
             if (!$.data(this, "plugin_" + pluginName)) {
@@ -106,6 +110,7 @@
         });
     };
 
+    // defaults
     $.fn[pluginName].defaults = {
         hide: false,
         classes: {
