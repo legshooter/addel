@@ -6,7 +6,7 @@ var rename = require('gulp-rename');
 gulp.task('default', function() {
     return gulp.src('addel.jquery.js')
         .pipe(uglify())
-        .pipe(rename({ extname: '.min.js' }))
+        .pipe(rename({ suffix: '.min' }))
         .pipe(gulp.dest('.'));
 });
 
