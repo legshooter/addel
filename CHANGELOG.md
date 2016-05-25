@@ -1,6 +1,14 @@
 # Changelog
 The release cycle adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.1.0 - May 25th, 2016
+### Added
+- Exposed `added` object on `addel:added` event
+
+### Updated
+- jQuery dependency from v2.2.3 to v2.2.4
+- Code/Formatting - Minor internal tweaks
+- README - Events presentation overhaul and other minor tweaks
 
 ## v1.0.0 - May 4th, 2016
 ### Breaking changes
