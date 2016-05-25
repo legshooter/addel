@@ -14,8 +14,8 @@
         var settings = $.extend(true, {}, $.fn[pluginName].defaults, options);
 
         var targetClass = '.' + settings.classes.target;
-        var addButtonClass = '.' + settings.classes.add;
-        var deleteButtonClass = '.' + settings.classes.delete;
+        var addClass = '.' + settings.classes.add;
+        var deleteClass = '.' + settings.classes.delete;
 
         var animation = {
             duration: settings.animation.duration,
@@ -28,7 +28,7 @@
         }
 
         // add
-        container.on('click', addButtonClass, function () {
+        container.on('click', addClass, function () {
 
             var target = container.find(targetClass).last();
 
@@ -48,15 +48,16 @@
                 target.clone().insertAfter(target).hide().fadeIn(animation).find(formElements).val(null);
             }
 
-            container.find(targetClass).last().find(':input:enabled:visible:first').focus();
+            var added = container.find(targetClass).last();
+            added.find(':input:enabled:visible:first').focus();
 
             // addel:added event
-            container.trigger($.Event('addel:added', {target: target}));
+            container.trigger($.Event('addel:added', {target: target, added: added}));
 
         });
 
         // del
-        container.on('click', deleteButtonClass, function () {
+        container.on('click', deleteClass, function () {
 
             var target = $(this).closest(targetClass);
             var prevTarget = target.prev(targetClass);
@@ -73,9 +74,9 @@
             if (container.find(targetClass).length === 1) {
 
                 target.fadeOut(animation).find(formElements).prop('disabled', true);
-                container.find(addButtonClass).focus();
+                container.find(addClass).focus();
 
-                // >1 targets exist
+            // >1 targets exist
             } else {
 
                 target.fadeOut(animation.duration, animation.easing, function () {
@@ -83,9 +84,9 @@
                 });
 
                 if (prevTarget.length === 1) {
-                    prevTarget.find(deleteButtonClass).focus();
+                    prevTarget.find(deleteClass).focus();
                 } else {
-                    nextTarget.find(deleteButtonClass).focus();
+                    nextTarget.find(deleteClass).focus();
                 }
 
             }
