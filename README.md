@@ -23,7 +23,7 @@ There are multiple options:
 - Use [npm](https://www.npmjs.com/): `npm install addel --save`
 
 And include it:
-`<script src="/path/to/file/addel.jquery.js"></script>`
+`<script src="/path/to/file/addel.jquery.min.js"></script>`
 
 ## Initialization
 
@@ -91,10 +91,13 @@ Or a specific key:
 * `.addel-add` **must** be `.addel-container`'s descendant & can't be `.addel-target`'s descendant
 
 ## Custom events
-- `addel:add`: Triggered when `classes.add` is clicked
-- `addel:added`: Triggered when `classes.target` is added to the DOM
-- `addel:delete`: Triggered when `classes.delete` is clicked
-- `addel:deleted`: Triggered when `classes.target` is deleted from the DOM
+
+Event|Triggered when...|Exposes
+-----|-----------------|-------
+`addel:add`| `classes.add` is clicked|`event.target`
+`addel:added`| `classes.target` is added to the DOM|`event.target`, `event.added`
+|`addel:delete`| `classes.delete` is clicked|`event.target`
+`addel:deleted`| `classes.target` is removed from the DOM|`event.target`
 
 All custom events are triggered on the element addel is initialized upon (AKA `.addel-container`).
 
@@ -109,16 +112,18 @@ $('.addel').addel({
     event.preventDefault();
   }
 });
-````
+```
+
+A more elaborate [example](example.html) is included.
 
 ## Dependencies
 
-jQuery (v2.2.3).
+jQuery (v2.2.4).
 
 
 ## Browser support
 
-addel is developed and tested using Chrome (v50). Should work properly on all modern browsers (IE9+).
+addel is developed and tested using Chrome (v50). Should work properly on all evergreen browsers and IE9+.
 
 ## Release policy
 addel adheres to [Semantic Versioning](http://semver.org/).
