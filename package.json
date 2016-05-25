@@ -1,6 +1,6 @@
 {
   "name": "addel",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "addel is a simple & lightweight jQuery plugin for powering UIs that enable dynamic addition & deletion of HTML elements.",
   "keywords": [
     "addel",
@@ -15,7 +15,7 @@
   ],
   "main": "addel.jquery.js",
   "dependencies": {
-    "jquery": "^2.2.3"
+    "jquery": "^2.2.4"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
