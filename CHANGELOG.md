@@ -1,6 +1,16 @@
 # Changelog
 The release cycle adheres to [Semantic Versioning](http://semver.org/).
 
+## v1.1.1 - May 26th, 2016
+### Fixed
+- addel.jquery.min.js
+- npm-shrinkwrap.json
+
+### Tweaked
+- npm package description
+- npm version
+- gulp-rename
+
 ## v1.1.0 - May 25th, 2016
 ### Added
 - Exposed `added` object on `addel:added` event
