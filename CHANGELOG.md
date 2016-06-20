@@ -4,7 +4,7 @@ The release cycle adheres to [Semantic Versioning](http://semver.org/).
 ## v1.1.2 - TBA
 ### Patched
 - Updated `LICENSE`'s year
-- Updated `example.html`'s jQuery to v3.0.0
+- Updated `example.html`'s jQuery to v2.2.4
 - Check AMD/CommonJS/UMD support?
 
 ## v1.1.1 - May 26th, 2016
