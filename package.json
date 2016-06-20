@@ -11,7 +11,9 @@
     "Adele",
     "dynamic",
     "UI",
-    "html"
+    "html",
+    "duplicate",
+    "clone"
   ],
   "main": "addel.jquery.js",
   "dependencies": {
