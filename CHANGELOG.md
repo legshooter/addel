@@ -2,6 +2,13 @@
 The release cycle adheres to [Semantic Versioning](http://semver.org/).
 
 
+## v1.2.1 - August 12th, 2016
+
+### Fixed
+- Adds default empty callbacks events object
+- README jQuery version
+
+
 ## v1.2.0 - August 12th, 2016
 ### Added
 - `add` option for the amount of times an element will be added to the DOM
@@ -16,6 +23,7 @@ The release cycle adheres to [Semantic Versioning](http://semver.org/).
 
 
 ## v1.1.1 - May 26th, 2016
+
 ### Fixed
 - addel.jquery.min.js
 - npm-shrinkwrap.json
@@ -25,7 +33,9 @@ The release cycle adheres to [Semantic Versioning](http://semver.org/).
 - npm version
 - gulp-rename
 
+
 ## v1.1.0 - May 25th, 2016
+
 ### Added
 - Exposed `added` object on `addel:added` event
 
@@ -36,6 +46,7 @@ The release cycle adheres to [Semantic Versioning](http://semver.org/).
 
 
 ## v1.0.0 - May 4th, 2016
+
 ### Breaking changes
 - Plugin file name changed from `addel.js` to `addel.jquery.js`
 - CSS classes moved to their own`classes`  object inside the `options` object

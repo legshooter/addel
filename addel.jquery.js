@@ -304,6 +304,16 @@ if (typeof jQuery === 'undefined') {
         animation: {
             duration: 0,
             easing: 'swing'
+        },
+        events: {
+            add: function () {
+            },
+            added: function () {
+            },
+            delete: function () {
+            },
+            deleted: function () {
+            }
         }
     };
 
