@@ -10,8 +10,7 @@ The release cycle adheres to [Semantic Versioning](http://semver.org/).
 
 ### Updated
 - Major internal code overhaul and minor bug fixes
-- jQuery v2.2.4 > jQuery v3.1.0
-- `example.html`
+- More detailed `example.html` (jQuery v2.2.4 -> jQuery v3.1.0)
 - `README`
 - `LICENSE`'s year
 
