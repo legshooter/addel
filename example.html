@@ -5,73 +5,124 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>addel Example</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 </head>
 <body>
 
-<div class="container">
+<div class="container" style="max-width: 1000px">
+
+    <h1 class="text-center">
+        addel Example
+    </h1>
+
     <div class="row">
-        <div class="col-sm-6 col-sm-offset-3">
+        <div class="col-sm-5">
 
-            <h1 class="text-center">addel Example</h1>
+            <form class="addel"
+                  data-addel-hide="true"
+                  data-addel-add="3"
+                  data-addel-animation-duration="1000">
 
-            <div class="addel">
+                <h2>
+                    Organizations
+                    <small>
+                        data-attributes
+                    </small>
+                </h2>
 
-                <h2>Organizations</h2>
-
-                <div class="form-group target">
+                <div class="form-group" data-addel-target>
+                    <label for="contact" class="control-label">
+                        Organization
+                    </label>
                     <div class="input-group">
-                        <input type="text" name="contacts[]" class="form-control">
+                        <input type="text" id="contact" name="contacts[]" class="form-control">
                         <span class="input-group-btn">
-                            <button type="button" class="btn btn-danger addel-delete"><i class="fa fa-remove"></i>
+                            <button type="button" class="btn btn-danger" data-addel-delete>
+                                <i class="fa fa-remove"></i>
                             </button>
                         </span>
                     </div>
                 </div>
 
-                <button type="button" class="btn btn-success btn-block addel-add"><i class="fa fa-plus"></i></button>
-
-            </div>
-
-            <div class="addel">
-
-                <h2>People</h2>
-
-                <div class="form-group target">
-                    <div class="input-group">
-                        <input type="text" name="contacts[]" class="form-control">
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-danger addel-delete"><i class="fa fa-remove"></i>
-                            </button>
-                        </span>
+                <div class="row">
+                    <div class="form-group col-sm-4">
+                        <button type="button" class="btn btn-success btn-block" data-addel-add="1">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <button type="button" class="btn btn-success btn-block" data-addel-add="2">
+                            <i class="fa fa-plus"></i> 2
+                        </button>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <button type="button" class="btn btn-success btn-block" data-addel-add>
+                            <i class="fa fa-plus"></i> 3
+                        </button>
                     </div>
                 </div>
 
-                <button type="button" class="btn btn-success btn-block addel-add"><i class="fa fa-plus"></i></button>
-
-            </div>
+            </form>
 
         </div>
+
+        <div class="col-sm-5 col-sm-offset-2">
+
+            <form class="addel">
+
+                <h2>
+                    People
+                    <small>
+                        Traditional options
+                    </small>
+                </h2>
+
+                <div class="form-group addel-target">
+                    <label for="person" class="control-label">
+                        Person
+                    </label>
+                    <div class="input-group">
+                        <input type="text" id="person" name="contacts[]" class="form-control">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-danger addel-delete">
+                                <i class="fa fa-remove">
+
+                                </i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button type="button" class="btn btn-success btn-block addel-add">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+
     </div>
+
 </div>
 
-<script src="https://code.jquery.com/jquery-2.2.4.min.js"
-        integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"
+        integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 <script src="addel.jquery.js"></script>
+
 <script>
     $(document).ready(function () {
         $('.addel').addel({
-            classes: {
-                target: 'target'
-            },
-            animation: {
-                duration: 100
+            events: {
+                added: function (event) {
+                    console.log('Added ' + event.added.length);
+                }
             }
         }).on('addel:delete', function (event) {
             if (!window.confirm('Are you absolutely positive you would like to delete: ' + '"' + event.target.find(':input').val() + '"?')) {
-                console.log('preventDefault()!');
+                console.log('Deletion prevented!');
                 event.preventDefault();
             }
         });

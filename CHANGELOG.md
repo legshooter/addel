@@ -1,11 +1,20 @@
 # Changelog
 The release cycle adheres to [Semantic Versioning](http://semver.org/).
 
-## v1.1.2 - TBA
-### Patched
-- Updated `LICENSE`'s year
-- Updated `example.html`'s jQuery to v2.2.4
-- Check AMD/CommonJS/UMD support?
+
+## v1.2.0 - August 12th, 2016
+### Added
+- `add` option for the amount of times an element will be added to the DOM
+- Declaratively specify options via HTML5 data-attributes
+- `events` option object acts as a shortcut for binding callbacks to events
+
+### Updated
+- Major internal code overhaul and minor bug fixes
+- jQuery v2.2.4 > jQuery v3.1.0
+- `example.html`
+- `README`
+- `LICENSE`'s year
+
 
 ## v1.1.1 - May 26th, 2016
 ### Fixed
@@ -25,6 +34,7 @@ The release cycle adheres to [Semantic Versioning](http://semver.org/).
 - jQuery dependency from v2.2.3 to v2.2.4
 - Code/Formatting - Minor internal tweaks
 - README - Events presentation overhaul and other minor tweaks
+
 
 ## v1.0.0 - May 4th, 2016
 ### Breaking changes

@@ -1,103 +1,284 @@
-;(function ($) {
+/*!
+ * addel v1.2.0
+ * https://github.com/legshooter/addel
+ * Copyright 2016 legshooter
+ * Released under the MIT license
+ */
+
+if (typeof jQuery === 'undefined') {
+    throw new Error('addel requires jQuery')
+}
+
+(function ($) {
 
     'use strict';
 
     var pluginName = 'addel';
 
-    var formElements = 'input, select, textarea';
+    // sets up all vars
+    var Plugin = function Plugin(container, options) {
 
-    function Plugin(element, options) {
+        // saves a reference because 'this' is a reserved keyword that changes context inside the different scopes
+        var plugin = this;
 
-        // vars
-        var container = $(element);
+        this.$container = $(container);
 
-        var settings = $.extend(true, {}, $.fn[pluginName].defaults, options);
+        // merges the defaults with the user declared options
+        this.settings = $.extend(true, {}, $.fn[pluginName].defaults, options);
 
-        var targetClass = '.' + settings.classes.target;
-        var addClass = '.' + settings.classes.add;
-        var deleteClass = '.' + settings.classes.delete;
+        // hardcodes types of HTML input elements
+        this.settings.formElements = 'input, select, textarea';
 
-        var animation = {
-            duration: settings.animation.duration,
-            easing: settings.animation.easing
-        };
-
-        // hide feature
-        if (settings.hide) {
-            container.find(targetClass).hide().find(formElements).prop('disabled', true);
-        }
-
-        // add
-        container.on('click', addClass, function () {
-
-            var target = container.find(targetClass).last();
-
-            // addel:add event
-            var addEvent = $.Event('addel:add', {target: target});
-            container.trigger(addEvent);
-            if (addEvent.isDefaultPrevented()) {
-                return
-            }
-
-            // no visible targets
-            if (target.filter(':visible').length === 0) {
-                target.fadeIn(animation).find(formElements).prop('disabled', false);
-
-            // visible target/s
-            } else {
-                target.clone().insertAfter(target).hide().fadeIn(animation).find(formElements).val(null);
-            }
-
-            var added = container.find(targetClass).last();
-            added.find(':input:enabled:visible:first').focus();
-
-            // addel:added event
-            container.trigger($.Event('addel:added', {target: target, added: added}));
-
+        // gives data-attributes precedence over user declared options and defaults
+        ['hide', 'add'].forEach(function (option) {
+            plugin.settings[option] = plugin.$container.data(pluginName + '-' + option) || plugin.settings[option];
         });
 
-        // del
-        container.on('click', deleteClass, function () {
+        ['duration', 'easing'].forEach(function (option) {
+            plugin.settings.animation[option] = plugin.$container.data(pluginName + '-animation-' + option) || plugin.settings.animation[option];
+        });
 
-            var target = $(this).closest(targetClass);
-            var prevTarget = target.prev(targetClass);
-            var nextTarget = target.next(targetClass);
+        // sets classes and data-attributes as the selectors
+        this.selectors = {};
+        $.each(this.settings.classes, function (element, value) {
+            plugin.selectors[element] = '.' + value + ', [data-' + pluginName + '-' + element + ']';
+        });
 
-            // addel:delete event
-            var deleteEvent = $.Event('addel:delete', {target: target});
-            container.trigger(deleteEvent);
-            if (deleteEvent.isDefaultPrevented()) {
+    };
+
+    Plugin.prototype = {
+
+        // the core
+        init: function init() {
+
+            if (this.settings.hide) {
+                this
+                    .toggleTargetInputDisable(this.getLastTarget())
+                    .hide();
+            }
+
+            this.$container
+            // 'this' is being passed since we need a reference to the plugin's instance
+            // and it's a reserved keyword that changes context inside the handlers
+                .on('click', this.selectors.add, {plugin: this}, this.add)
+                .on('click', this.selectors.delete, {plugin: this}, this.delete)
+                // register events option callbacks
+                .on('addel:add', this.settings.events.add)
+                .on('addel:added', this.settings.events.added)
+                .on('addel:delete', this.settings.events.delete)
+                .on('addel:deleted', this.settings.events.deleted);
+
+        },
+
+        add: function add(event) {
+
+            var plugin = event.data.plugin;
+            var $target = plugin.getLastTarget();
+            // gives the button's data-attribute precedence over the setting
+            var amount = $(this).data(pluginName + '-add') || plugin.settings.add;
+
+            // gives the user the possibility to opt out
+            if (plugin.triggerAddEvent($target).isDefaultPrevented()) {
                 return false;
             }
 
-            // 1 target exists
-            if (container.find(targetClass).length === 1) {
+            var $added = $();
 
-                target.fadeOut(animation).find(formElements).prop('disabled', true);
-                container.find(addClass).focus();
+            if (plugin.getVisibleTargetsCount() === 0) {
 
-            // >1 targets exist
-            } else {
+                amount--;
 
-                target.fadeOut(animation.duration, animation.easing, function () {
-                    $(this).remove();
-                });
+                plugin.toggleTargetVisibility($target);
 
-                if (prevTarget.length === 1) {
-                    prevTarget.find(deleteClass).focus();
-                } else {
-                    nextTarget.find(deleteClass).focus();
-                }
+                $added = $added.add($target);
 
             }
 
-            // addel:deleted event
-            container.trigger($.Event('addel:deleted', {target: target}));
+            $added = $added.add(plugin.addTarget($target, amount));
 
-        });
+            plugin.focusOnTargetInput($added);
 
+            plugin.triggerAddedEvent($target, $added);
 
-    }
+        },
+
+        addTarget: function addTarget($target, amount) {
+
+            // this will hold all added elements so we could eventually expose them to the user
+            var $added = $();
+
+            // makes sure target is fully drawn before cloning
+            $target.finish();
+
+            for (var i = 0; i < amount; i++) {
+
+                var $clonedTarget = $target.clone();
+
+                // this incurs the heaviest performance hit
+                $added = $added.add($clonedTarget);
+
+                $clonedTarget
+                    .insertAfter($target)
+                    // enables the subsequent animation to display
+                    .hide()
+                    .fadeIn(this.settings.animation)
+                    .find(this.settings.formElements)
+                    // since even clone(true) won't keep select/textarea values, we'll just null for consistency
+                    // @see https://api.jquery.com/clone/
+                    .val(null);
+
+            }
+
+            return $added;
+
+        },
+
+        delete: function del(event) {
+
+            var plugin = event.data.plugin;
+            var $target = $(this).closest(plugin.selectors.target);
+
+            // gives the user the possibility to opt out
+            if (plugin.triggerDeleteEvent($target).isDefaultPrevented()) {
+                return false;
+            }
+
+            if (plugin.getVisibleTargetsCount() === 1) {
+
+                plugin.toggleTargetVisibility($target);
+
+                plugin.focusOnAdd();
+
+            } else {
+
+                // since the current target is a dependency, focus has to be called before delete
+                plugin.focusOnDelete($target);
+
+                plugin.deleteTarget($target);
+
+            }
+
+            plugin.triggerDeletedEvent($target);
+
+        },
+
+        deleteTarget: function deleteTarget($target) {
+
+            $target
+            // this lets other pieces of the puzzle know that this element will soon be removed from the DOM
+                .addClass('addel-deleting')
+                .fadeOut(this.settings.animation.duration, this.settings.animation.easing, function () {
+                    $(this).remove();
+                });
+
+        },
+
+        toggleTargetVisibility: function toggleTargetVisibility($target) {
+
+            this
+                .toggleTargetInputDisable($target)
+                .fadeToggle(this.settings.animation);
+
+        },
+
+        toggleTargetInputDisable: function toggleTargetInputDisable($target) {
+
+            $target
+                .find(this.settings.formElements)
+                .prop('disabled', function ($name, $value) {
+                    return !$value;
+                });
+
+            return $target;
+
+        },
+
+        focusOnTargetInput: function focusOnTargetInput($targets) {
+
+            $targets
+                .last()
+                .find(':input:enabled:visible:first')
+                .focus();
+
+        },
+
+        focusOnAdd: function focusOnAdd() {
+
+            this.$container
+                .find(this.selectors.add)
+                .first()
+                .focus();
+
+        },
+
+        focusOnDelete: function focusOnDelete($target) {
+
+            var $prevTarget = $target.prev(this.selectors.target).not('.addel-deleting');
+            var $nextTarget = $target.next(this.selectors.target).not('.addel-deleting');
+
+            var $targetForFocus = $prevTarget.length ? $prevTarget : $nextTarget;
+
+            $targetForFocus.find(this.selectors.delete).focus();
+
+        },
+
+        getLastTarget: function getLastTarget(amount) {
+
+            return this.$container
+                .find(this.selectors.target)
+                // gets n last targets
+                .slice(-amount || -1);
+        },
+
+        getVisibleTargetsCount: function getVisibleTargetsCount() {
+
+            return this.$container
+                .find(this.selectors.target)
+                .filter(':visible')
+                .not('.addel-deleting')
+                .length
+
+        },
+
+        triggerAddEvent: function triggerAddEvent($target) {
+
+            var addEvent = $.Event('addel:add', {target: $target});
+
+            this.$container.trigger(addEvent);
+
+            // returns the event so isDefaultPrevented() could be checked
+            return addEvent;
+
+        },
+
+        triggerAddedEvent: function triggerAddedEvent($target, $added) {
+
+            this.$container.trigger(
+                $.Event('addel:added', {target: $target, added: $added})
+            );
+
+        },
+
+        triggerDeleteEvent: function triggerDeleteEvent($target) {
+
+            var deleteEvent = $.Event('addel:delete', {target: $target});
+
+            this.$container.trigger(deleteEvent);
+
+            // returns the event so isDefaultPrevented() could be checked
+            return deleteEvent;
+
+        },
+
+        triggerDeletedEvent: function triggerDeletedEvent($target) {
+
+            this.$container.trigger(
+                $.Event('addel:deleted', {target: $target})
+            );
+
+        }
+
+    };
 
     // plugin wrapper
     // instantiates the plugin as many times as needed
@@ -106,14 +287,15 @@
         return this.each(function () {
             if (!$.data(this, "plugin_" + pluginName)) {
                 $.data(this, "plugin_" + pluginName,
-                    new Plugin(this, options));
+                    new Plugin(this, options)).init();
             }
         });
     };
 
-    // defaults
+    // sets overridable plugin defaults
     $.fn[pluginName].defaults = {
         hide: false,
+        add: 1,
         classes: {
             target: 'addel-target',
             add: 'addel-add',
