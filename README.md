@@ -184,7 +184,7 @@ A more elaborate [example](example.html) is included.
 
 ## Dependencies
 
-jQuery (v3.1.0).
+jQuery (v2-3).
 
 
 ## Browser support
