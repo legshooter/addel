@@ -2,6 +2,17 @@
 The release cycle adheres to [Semantic Versioning](http://semver.org/).
 
 
+## v1.3.0 - January 23rd, 2017
+
+### Added
+- `classes.deleting` option
+
+### Updated
+- Minor code refactoring
+- README (`classes.deleting`, TOC, yarn)
+- example.html (jQuery, Font Awesome)
+
+
 ## v1.2.1 - August 12th, 2016
 
 ### Fixed
@@ -10,6 +21,7 @@ The release cycle adheres to [Semantic Versioning](http://semver.org/).
 
 
 ## v1.2.0 - August 12th, 2016
+
 ### Added
 - `add` option for the amount of times an element will be added to the DOM
 - Declaratively specify options via HTML5 data-attributes

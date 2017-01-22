@@ -4,18 +4,17 @@
  * Copyright 2016 legshooter
  * Released under the MIT license
  */
+'use strict';
+
+var pluginName = 'addel';
 
 if (typeof jQuery === 'undefined') {
-    throw new Error('addel requires jQuery')
+    throw new Error(pluginName + ' requires jQuery');
 }
 
 (function ($) {
 
-    'use strict';
-
-    var pluginName = 'addel';
-
-    // sets up all vars
+    // sort of a constructor - sets up all vars
     var Plugin = function Plugin(container, options) {
 
         // saves a reference because 'this' is a reserved keyword that changes context inside the different scopes
@@ -26,7 +25,7 @@ if (typeof jQuery === 'undefined') {
         // merges the defaults with the user declared options
         this.settings = $.extend(true, {}, $.fn[pluginName].defaults, options);
 
-        // hardcodes types of HTML input elements
+        // hardcodes types of HTML form input elements
         this.settings.formElements = 'input, select, textarea';
 
         // gives data-attributes precedence over user declared options and defaults
@@ -53,7 +52,7 @@ if (typeof jQuery === 'undefined') {
 
             if (this.settings.hide) {
                 this
-                    .toggleTargetInputDisable(this.getLastTarget())
+                    .toggleTargetInputState(this.getLastTarget())
                     .hide();
             }
 
@@ -63,10 +62,10 @@ if (typeof jQuery === 'undefined') {
                 .on('click', this.selectors.add, {plugin: this}, this.add)
                 .on('click', this.selectors.delete, {plugin: this}, this.delete)
                 // register events option callbacks
-                .on('addel:add', this.settings.events.add)
-                .on('addel:added', this.settings.events.added)
-                .on('addel:delete', this.settings.events.delete)
-                .on('addel:deleted', this.settings.events.deleted);
+                .on(pluginName + ':add', this.settings.events.add)
+                .on(pluginName + ':added', this.settings.events.added)
+                .on(pluginName + ':delete', this.settings.events.delete)
+                .on(pluginName + ':deleted', this.settings.events.deleted);
 
         },
 
@@ -78,7 +77,7 @@ if (typeof jQuery === 'undefined') {
             var amount = $(this).data(pluginName + '-add') || plugin.settings.add;
 
             // gives the user the possibility to opt out
-            if (plugin.triggerAddEvent($target).isDefaultPrevented()) {
+            if (plugin.triggerAddEvent($target).defaultPrevented) {
                 return false;
             }
 
@@ -123,7 +122,7 @@ if (typeof jQuery === 'undefined') {
                     .hide()
                     .fadeIn(this.settings.animation)
                     .find(this.settings.formElements)
-                    // since even clone(true) won't keep select/textarea values, we'll just null for consistency
+                    // since even "clone(true)" won't keep "select"/"textarea" values, we'll just "null" for consistency
                     // @see https://api.jquery.com/clone/
                     .val(null);
 
@@ -139,7 +138,7 @@ if (typeof jQuery === 'undefined') {
             var $target = $(this).closest(plugin.selectors.target);
 
             // gives the user the possibility to opt out
-            if (plugin.triggerDeleteEvent($target).isDefaultPrevented()) {
+            if (plugin.triggerDeleteEvent($target).defaultPrevented) {
                 return false;
             }
 
@@ -165,8 +164,8 @@ if (typeof jQuery === 'undefined') {
         deleteTarget: function deleteTarget($target) {
 
             $target
-            // this lets other pieces of the puzzle know that this element will soon be removed from the DOM
-                .addClass('addel-deleting')
+                // this lets other pieces of the puzzle know that this element will soon be removed from the DOM
+                .addClass(this.settings.classes.deleting)
                 .fadeOut(this.settings.animation.duration, this.settings.animation.easing, function () {
                     $(this).remove();
                 });
@@ -176,12 +175,12 @@ if (typeof jQuery === 'undefined') {
         toggleTargetVisibility: function toggleTargetVisibility($target) {
 
             this
-                .toggleTargetInputDisable($target)
+                .toggleTargetInputState($target)
                 .fadeToggle(this.settings.animation);
 
         },
 
-        toggleTargetInputDisable: function toggleTargetInputDisable($target) {
+        toggleTargetInputState: function toggleTargetInputState($target) {
 
             $target
                 .find(this.settings.formElements)
@@ -213,8 +212,8 @@ if (typeof jQuery === 'undefined') {
 
         focusOnDelete: function focusOnDelete($target) {
 
-            var $prevTarget = $target.prev(this.selectors.target).not('.addel-deleting');
-            var $nextTarget = $target.next(this.selectors.target).not('.addel-deleting');
+            var $prevTarget = $target.prev(this.selectors.target).not('.' + this.settings.classes.deleting);
+            var $nextTarget = $target.next(this.selectors.target).not('.' + this.settings.classes.deleting);
 
             var $targetForFocus = $prevTarget.length ? $prevTarget : $nextTarget;
 
@@ -235,18 +234,18 @@ if (typeof jQuery === 'undefined') {
             return this.$container
                 .find(this.selectors.target)
                 .filter(':visible')
-                .not('.addel-deleting')
+                .not('.' + this.settings.classes.deleting)
                 .length
 
         },
 
         triggerAddEvent: function triggerAddEvent($target) {
 
-            var addEvent = $.Event('addel:add', {target: $target});
+            var addEvent = $.Event(pluginName + ':add', {target: $target});
 
             this.$container.trigger(addEvent);
 
-            // returns the event so isDefaultPrevented() could be checked
+            // returns the event so defaultPrevented could be checked
             return addEvent;
 
         },
@@ -254,18 +253,18 @@ if (typeof jQuery === 'undefined') {
         triggerAddedEvent: function triggerAddedEvent($target, $added) {
 
             this.$container.trigger(
-                $.Event('addel:added', {target: $target, added: $added})
+                $.Event(pluginName + ':added', {target: $target, added: $added})
             );
 
         },
 
         triggerDeleteEvent: function triggerDeleteEvent($target) {
 
-            var deleteEvent = $.Event('addel:delete', {target: $target});
+            var deleteEvent = $.Event(pluginName + ':delete', {target: $target});
 
             this.$container.trigger(deleteEvent);
 
-            // returns the event so isDefaultPrevented() could be checked
+            // returns the event so defaultPrevented could be checked
             return deleteEvent;
 
         },
@@ -273,7 +272,7 @@ if (typeof jQuery === 'undefined') {
         triggerDeletedEvent: function triggerDeletedEvent($target) {
 
             this.$container.trigger(
-                $.Event('addel:deleted', {target: $target})
+                $.Event(pluginName + ':deleted', {target: $target})
             );
 
         }
@@ -297,9 +296,10 @@ if (typeof jQuery === 'undefined') {
         hide: false,
         add: 1,
         classes: {
-            target: 'addel-target',
-            add: 'addel-add',
-            delete: 'addel-delete'
+            target: pluginName + '-target',
+            add: pluginName + '-add',
+            delete: pluginName + '-delete',
+            deleting: pluginName + '-deleting'
         },
         animation: {
             duration: 0,
