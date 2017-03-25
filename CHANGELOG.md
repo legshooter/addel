@@ -2,6 +2,16 @@
 The release cycle adheres to [Semantic Versioning](http://semver.org/).
 
 
+## v1.3.1 - March 25th, 2017
+
+### Fixed
+- `event.preventDefault()` bug
+
+### Updated
+- example.html's jQuery to v3.2.1
+- README misc
+
+
 ## v1.3.0 - January 23rd, 2017
 
 ### Added
