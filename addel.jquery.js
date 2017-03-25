@@ -77,7 +77,7 @@ if (typeof jQuery === 'undefined') {
             var amount = $(this).data(pluginName + '-add') || plugin.settings.add;
 
             // gives the user the possibility to opt out
-            if (plugin.triggerAddEvent($target).defaultPrevented) {
+            if (plugin.triggerAddEvent($target).isDefaultPrevented()) {
                 return false;
             }
 
@@ -138,7 +138,7 @@ if (typeof jQuery === 'undefined') {
             var $target = $(this).closest(plugin.selectors.target);
 
             // gives the user the possibility to opt out
-            if (plugin.triggerDeleteEvent($target).defaultPrevented) {
+            if (plugin.triggerDeleteEvent($target).isDefaultPrevented()) {
                 return false;
             }
 
@@ -245,7 +245,7 @@ if (typeof jQuery === 'undefined') {
 
             this.$container.trigger(addEvent);
 
-            // returns the event so defaultPrevented could be checked
+            // returns the event so event.isDefaultPrevented() could be checked
             return addEvent;
 
         },
@@ -264,7 +264,7 @@ if (typeof jQuery === 'undefined') {
 
             this.$container.trigger(deleteEvent);
 
-            // returns the event so defaultPrevented could be checked
+            // returns the event so event.isDefaultPrevented() could be checked
             return deleteEvent;
 
         },
