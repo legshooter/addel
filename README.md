@@ -58,7 +58,7 @@ $('.addel-container').addel({
 ```
 
 
-## :warning: HTML structure and restrictions :warning:
+## :warning: HTML structure and restrictions
 
 ```html
 <div class="addel-container">
@@ -72,7 +72,7 @@ As per [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt):
 * `.addel-container` **MUST** be the element addel is initialized upon
 * `.addel-container` **MUST** contain everything else: `.addel-target`, `.addel-delete` and `.addel-add`
 * `.addel-target` **MAY** also contain your own element/s, this is after all what we are here for
-* `.addel-delete` **MUST** be `.addel-container` and `.addel-target`'s descendant
+* `.addel-delete` **MUST** be `.addel-container`'s and `.addel-target`'s descendant
 * `.addel-add` **MUST** be `.addel-container`'s descendant and **MUST NOT** be `.addel-target`'s descendant
 
 Note that class names are for reference only and are completely customizable, as described in the [options section](#options).
@@ -117,7 +117,7 @@ $('.people').addel({
 ```
 
 ### Data-attributes
-Apart of the event callbacks, all the options above can be set declaratively as data-attributes on the HTML elements:
+Some options can be set declaratively as data-attributes on the HTML elements:
 
 Option|Data-attribute equivalent|Placement
 ------|-------------------------|---------
@@ -129,6 +129,7 @@ Option|Data-attribute equivalent|Placement
 `animation.duration`| `data-addel-animation-duration`|container
 `animation.easing`| `data-addel-animation-easing`|container
 
+* Setting `data-addel-add` is the same as setting `data-addel-add="1"`.
 * Setting `data-addel-add="5"` on `.addel-container` will make all `.addel-add` / `data-addel-add` elements inside of it add 5 `target`s on click, by default.
 * Specifying in addition a `data-addel-add="10"` on a specific `.addel-add` / `data-addel-add` will make that _specific_ element add 10 `target`s, overriding the default 5 set earlier on the container.
 * Note that for elements to behave as buttons that add `target`s, you need to add _either_ `data-addel-add` _or_ `data-addel-add="<number>"` to the element, there's no need for both.
@@ -179,7 +180,9 @@ All events are triggered on the element addel is initialized upon (AKA `containe
 Ask for confirmation before deleting:
 ```javascript
 $('.addel-container').addel({
+    
     // other options
+
     events: {
         delete: function (event) {
             if (!window.confirm('Are you absolutely positively sure?')) {
