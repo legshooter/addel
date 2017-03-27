@@ -2,6 +2,12 @@
 The release cycle adheres to [Semantic Versioning](http://semver.org/).
 
 
+## v1.3.2 - March 27th, 2017
+
+### Fixed
+- `addel:added` and `added:deleted` now respect the animation's duration
+
+
 ## v1.3.1 - March 25th, 2017
 
 ### Fixed
