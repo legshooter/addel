@@ -218,7 +218,7 @@ jQuery (v2-3).
 
 ## Browser support
 
-addel is developed using Chrome (v55). It should work properly on all evergreen browsers and IE9+.
+addel is developed using Chrome (v57). It should work properly on all evergreen browsers and IE9+.
 
 
 ## Release policy
