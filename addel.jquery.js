@@ -97,11 +97,11 @@ if (typeof jQuery === 'undefined') {
 
             plugin.focusOnTargetInput($added);
 
-            plugin.triggerAddedEvent($target, $added);
-
         },
 
         addTarget: function addTarget($target, amount) {
+
+            var plugin = this;
 
             // this will hold all added elements so we could eventually expose them to the user
             var $added = $();
@@ -116,17 +116,23 @@ if (typeof jQuery === 'undefined') {
                 // this incurs the heaviest performance hit
                 $added = $added.add($clonedTarget);
 
-                $clonedTarget
-                    .insertAfter($target)
-                    // enables the subsequent animation to display
-                    .hide()
-                    .fadeIn(this.settings.animation)
-                    .find(this.settings.formElements)
-                    // since even "clone(true)" won't keep "select"/"textarea" values, we'll just "null" for consistency
-                    // @see https://api.jquery.com/clone/
-                    .val(null);
-
             }
+
+            $added
+                .insertAfter($target)
+                .find(this.settings.formElements)
+                // since even "clone(true)" won't keep "select"/"textarea" values, we'll just "null" for consistency
+                // @see https://api.jquery.com/clone/
+                .val(null)
+                // enables the subsequent animation to display
+                .hide()
+                .fadeIn(this.settings.animation)
+                // wait for animation/s to complete before firing event
+                // this only works with a promise, instead of a fadeIn() complete callback
+                // maybe because this is a collection of elements, @see http://api.jquery.com/fadein/
+                .promise().done(function () {
+                    plugin.triggerAddedEvent($target, $added);
+                 });
 
             return $added;
 
@@ -157,17 +163,18 @@ if (typeof jQuery === 'undefined') {
 
             }
 
-            plugin.triggerDeletedEvent($target);
-
         },
 
         deleteTarget: function deleteTarget($target) {
+
+            var plugin = this;
 
             $target
                 // this lets other pieces of the puzzle know that this element will soon be removed from the DOM
                 .addClass(this.settings.classes.deleting)
                 .fadeOut(this.settings.animation.duration, this.settings.animation.easing, function () {
                     $(this).remove();
+                    plugin.triggerDeletedEvent($target);
                 });
 
         },
